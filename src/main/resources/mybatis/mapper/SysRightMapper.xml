@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.mapper.SysRightMapper" >
+  <resultMap id="BaseResultMap" type="com.book.pojo.SysRight" >
+    <id column="right_code" property="rightCode" jdbcType="VARCHAR" />
+    <result column="right_parent_code" property="rightParentCode" jdbcType="VARCHAR" />
+    <result column="right_type" property="rightType" jdbcType="VARCHAR" />
+    <result column="right_text" property="rightText" jdbcType="VARCHAR" />
+    <result column="right_url" property="rightUrl" jdbcType="VARCHAR" />
+    <result column="right_tip" property="rightTip" jdbcType="VARCHAR" />
+    <result column="right_img" property="rightImg" jdbcType="VARCHAR" />
+    <result column="right_isCurrent" property="rightIscurrent" jdbcType="CHAR" />
+    <result column="right_isFlag" property="rightIsflag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    right_code, right_parent_code, right_type, right_text, right_url, right_tip, right_img, 
+    right_isCurrent, right_isFlag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.book.pojo.SysRightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_right
+    where right_code = #{rightCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_right
+    where right_code = #{rightCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.pojo.SysRightExample" >
+    delete from sys_right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.pojo.SysRight" >
+    insert into sys_right (right_code, right_parent_code, right_type, 
+      right_text, right_url, right_tip, 
+      right_img, right_isCurrent, right_isFlag
+      )
+    values (#{rightCode,jdbcType=VARCHAR}, #{rightParentCode,jdbcType=VARCHAR}, #{rightType,jdbcType=VARCHAR}, 
+      #{rightText,jdbcType=VARCHAR}, #{rightUrl,jdbcType=VARCHAR}, #{rightTip,jdbcType=VARCHAR}, 
+      #{rightImg,jdbcType=VARCHAR}, #{rightIscurrent,jdbcType=CHAR}, #{rightIsflag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.pojo.SysRight" >
+    insert into sys_right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rightCode != null" >
+        right_code,
+      </if>
+      <if test="rightParentCode != null" >
+        right_parent_code,
+      </if>
+      <if test="rightType != null" >
+        right_type,
+      </if>
+      <if test="rightText != null" >
+        right_text,
+      </if>
+      <if test="rightUrl != null" >
+        right_url,
+      </if>
+      <if test="rightTip != null" >
+        right_tip,
+      </if>
+      <if test="rightImg != null" >
+        right_img,
+      </if>
+      <if test="rightIscurrent != null" >
+        right_isCurrent,
+      </if>
+      <if test="rightIsflag != null" >
+        right_isFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rightCode != null" >
+        #{rightCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rightParentCode != null" >
+        #{rightParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rightType != null" >
+        #{rightType,jdbcType=VARCHAR},
+      </if>
+      <if test="rightText != null" >
+        #{rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null" >
+        #{rightUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rightTip != null" >
+        #{rightTip,jdbcType=VARCHAR},
+      </if>
+      <if test="rightImg != null" >
+        #{rightImg,jdbcType=VARCHAR},
+      </if>
+      <if test="rightIscurrent != null" >
+        #{rightIscurrent,jdbcType=CHAR},
+      </if>
+      <if test="rightIsflag != null" >
+        #{rightIsflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.pojo.SysRightExample" resultType="java.lang.Integer" >
+    select count(*) from sys_right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_right
+    <set >
+      <if test="record.rightCode != null" >
+        right_code = #{record.rightCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightParentCode != null" >
+        right_parent_code = #{record.rightParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightType != null" >
+        right_type = #{record.rightType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightText != null" >
+        right_text = #{record.rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightUrl != null" >
+        right_url = #{record.rightUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightTip != null" >
+        right_tip = #{record.rightTip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightImg != null" >
+        right_img = #{record.rightImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightIscurrent != null" >
+        right_isCurrent = #{record.rightIscurrent,jdbcType=CHAR},
+      </if>
+      <if test="record.rightIsflag != null" >
+        right_isFlag = #{record.rightIsflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_right
+    set right_code = #{record.rightCode,jdbcType=VARCHAR},
+      right_parent_code = #{record.rightParentCode,jdbcType=VARCHAR},
+      right_type = #{record.rightType,jdbcType=VARCHAR},
+      right_text = #{record.rightText,jdbcType=VARCHAR},
+      right_url = #{record.rightUrl,jdbcType=VARCHAR},
+      right_tip = #{record.rightTip,jdbcType=VARCHAR},
+      right_img = #{record.rightImg,jdbcType=VARCHAR},
+      right_isCurrent = #{record.rightIscurrent,jdbcType=CHAR},
+      right_isFlag = #{record.rightIsflag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.pojo.SysRight" >
+    update sys_right
+    <set >
+      <if test="rightParentCode != null" >
+        right_parent_code = #{rightParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rightType != null" >
+        right_type = #{rightType,jdbcType=VARCHAR},
+      </if>
+      <if test="rightText != null" >
+        right_text = #{rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null" >
+        right_url = #{rightUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rightTip != null" >
+        right_tip = #{rightTip,jdbcType=VARCHAR},
+      </if>
+      <if test="rightImg != null" >
+        right_img = #{rightImg,jdbcType=VARCHAR},
+      </if>
+      <if test="rightIscurrent != null" >
+        right_isCurrent = #{rightIscurrent,jdbcType=CHAR},
+      </if>
+      <if test="rightIsflag != null" >
+        right_isFlag = #{rightIsflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where right_code = #{rightCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.pojo.SysRight" >
+    update sys_right
+    set right_parent_code = #{rightParentCode,jdbcType=VARCHAR},
+      right_type = #{rightType,jdbcType=VARCHAR},
+      right_text = #{rightText,jdbcType=VARCHAR},
+      right_url = #{rightUrl,jdbcType=VARCHAR},
+      right_tip = #{rightTip,jdbcType=VARCHAR},
+      right_img = #{rightImg,jdbcType=VARCHAR},
+      right_isCurrent = #{rightIscurrent,jdbcType=CHAR},
+      right_isFlag = #{rightIsflag,jdbcType=INTEGER}
+    where right_code = #{rightCode,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByParentCode" parameterType="string" resultMap="BaseResultMap">
+  	SELECT * FROM sys_right WHERE right_parent_code IN ('${value}')
+  </select>
+  
+  <select id="selectByExampleUserId" parameterType="com.book.common.TreeByUserId" resultMap="BaseResultMap">
+  	SELECT srg.* FROM sys_user sy 
+	LEFT JOIN sys_role sr ON sy.user_role_id=sr.role_id
+	LEFT JOIN sys_role_right srr ON sr.role_id=srr.`rf_role_id`
+	INNER JOIN sys_right srg ON srr.`rf_right_code`=srg.right_code
+	<where>
+		srg.right_parent_code = #{parentCode} 
+		AND sy.`user_id` = #{id} 
+		AND srg.right_isFlag=1
+		ORDER BY srg.right_code
+	</where>
+  </select>
+  
+</mapper>

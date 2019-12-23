@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.mapper.BisDictSortMapper" >
+  <resultMap id="BaseResultMap" type="com.book.pojo.BisDictSort" >
+    <id column="sort_id" property="sortId" jdbcType="BIGINT" />
+    <result column="sort_name" property="sortName" jdbcType="VARCHAR" />
+    <result column="sort_detail" property="sortDetail" jdbcType="VARCHAR" />
+    <result column="sort_flag" property="sortFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sort_id, sort_name, sort_detail, sort_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.book.pojo.BisDictSortExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bis_dict_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bis_dict_sort
+    where sort_id = #{sortId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bis_dict_sort
+    where sort_id = #{sortId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.pojo.BisDictSortExample" >
+    delete from bis_dict_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.pojo.BisDictSort" >
+    insert into bis_dict_sort (sort_id, sort_name, sort_detail, 
+      sort_flag)
+    values (#{sortId,jdbcType=BIGINT}, #{sortName,jdbcType=VARCHAR}, #{sortDetail,jdbcType=VARCHAR}, 
+      #{sortFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.pojo.BisDictSort" >
+    insert into bis_dict_sort
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        sort_id,
+      </if>
+      <if test="sortName != null" >
+        sort_name,
+      </if>
+      <if test="sortDetail != null" >
+        sort_detail,
+      </if>
+      <if test="sortFlag != null" >
+        sort_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sortId != null" >
+        #{sortId,jdbcType=BIGINT},
+      </if>
+      <if test="sortName != null" >
+        #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortDetail != null" >
+        #{sortDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="sortFlag != null" >
+        #{sortFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.pojo.BisDictSortExample" resultType="java.lang.Integer" >
+    select count(*) from bis_dict_sort
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bis_dict_sort
+    <set >
+      <if test="record.sortId != null" >
+        sort_id = #{record.sortId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sortName != null" >
+        sort_name = #{record.sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortDetail != null" >
+        sort_detail = #{record.sortDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortFlag != null" >
+        sort_flag = #{record.sortFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bis_dict_sort
+    set sort_id = #{record.sortId,jdbcType=BIGINT},
+      sort_name = #{record.sortName,jdbcType=VARCHAR},
+      sort_detail = #{record.sortDetail,jdbcType=VARCHAR},
+      sort_flag = #{record.sortFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.pojo.BisDictSort" >
+    update bis_dict_sort
+    <set >
+      <if test="sortName != null" >
+        sort_name = #{sortName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortDetail != null" >
+        sort_detail = #{sortDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="sortFlag != null" >
+        sort_flag = #{sortFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sort_id = #{sortId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.pojo.BisDictSort" >
+    update bis_dict_sort
+    set sort_name = #{sortName,jdbcType=VARCHAR},
+      sort_detail = #{sortDetail,jdbcType=VARCHAR},
+      sort_flag = #{sortFlag,jdbcType=VARCHAR}
+    where sort_id = #{sortId,jdbcType=BIGINT}
+  </update>
+</mapper>

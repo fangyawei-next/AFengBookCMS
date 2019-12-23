@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.mapper.SysUserDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.book.pojo.SysUserDetail" >
+    <id column="detail_id" property="detailId" jdbcType="BIGINT" />
+    <result column="detail_name" property="detailName" jdbcType="CHAR" />
+    <result column="detail_sex" property="detailSex" jdbcType="CHAR" />
+    <result column="detail_date" property="detailDate" jdbcType="DATE" />
+    <result column="detail_phone" property="detailPhone" jdbcType="CHAR" />
+    <result column="detail_email" property="detailEmail" jdbcType="VARCHAR" />
+    <result column="detail_autograph" property="detailAutograph" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    detail_id, detail_name, detail_sex, detail_date, detail_phone, detail_email, detail_autograph
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.book.pojo.SysUserDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_user_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.pojo.SysUserDetailExample" >
+    delete from sys_user_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.pojo.SysUserDetail" >
+    insert into sys_user_detail (detail_id, detail_name, detail_sex, 
+      detail_date, detail_phone, detail_email, 
+      detail_autograph)
+    values (#{detailId,jdbcType=BIGINT}, #{detailName,jdbcType=CHAR}, #{detailSex,jdbcType=CHAR}, 
+      #{detailDate,jdbcType=DATE}, #{detailPhone,jdbcType=CHAR}, #{detailEmail,jdbcType=VARCHAR}, 
+      #{detailAutograph,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.pojo.SysUserDetail" >
+    insert into sys_user_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="detailName != null" >
+        detail_name,
+      </if>
+      <if test="detailSex != null" >
+        detail_sex,
+      </if>
+      <if test="detailDate != null" >
+        detail_date,
+      </if>
+      <if test="detailPhone != null" >
+        detail_phone,
+      </if>
+      <if test="detailEmail != null" >
+        detail_email,
+      </if>
+      <if test="detailAutograph != null" >
+        detail_autograph,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="detailName != null" >
+        #{detailName,jdbcType=CHAR},
+      </if>
+      <if test="detailSex != null" >
+        #{detailSex,jdbcType=CHAR},
+      </if>
+      <if test="detailDate != null" >
+        #{detailDate,jdbcType=DATE},
+      </if>
+      <if test="detailPhone != null" >
+        #{detailPhone,jdbcType=CHAR},
+      </if>
+      <if test="detailEmail != null" >
+        #{detailEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAutograph != null" >
+        #{detailAutograph,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.pojo.SysUserDetailExample" resultType="java.lang.Integer" >
+    select count(*) from sys_user_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user_detail
+    <set >
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=BIGINT},
+      </if>
+      <if test="record.detailName != null" >
+        detail_name = #{record.detailName,jdbcType=CHAR},
+      </if>
+      <if test="record.detailSex != null" >
+        detail_sex = #{record.detailSex,jdbcType=CHAR},
+      </if>
+      <if test="record.detailDate != null" >
+        detail_date = #{record.detailDate,jdbcType=DATE},
+      </if>
+      <if test="record.detailPhone != null" >
+        detail_phone = #{record.detailPhone,jdbcType=CHAR},
+      </if>
+      <if test="record.detailEmail != null" >
+        detail_email = #{record.detailEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailAutograph != null" >
+        detail_autograph = #{record.detailAutograph,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user_detail
+    set detail_id = #{record.detailId,jdbcType=BIGINT},
+      detail_name = #{record.detailName,jdbcType=CHAR},
+      detail_sex = #{record.detailSex,jdbcType=CHAR},
+      detail_date = #{record.detailDate,jdbcType=DATE},
+      detail_phone = #{record.detailPhone,jdbcType=CHAR},
+      detail_email = #{record.detailEmail,jdbcType=VARCHAR},
+      detail_autograph = #{record.detailAutograph,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.pojo.SysUserDetail" >
+    update sys_user_detail
+    <set >
+      <if test="detailName != null" >
+        detail_name = #{detailName,jdbcType=CHAR},
+      </if>
+      <if test="detailSex != null" >
+        detail_sex = #{detailSex,jdbcType=CHAR},
+      </if>
+      <if test="detailDate != null" >
+        detail_date = #{detailDate,jdbcType=DATE},
+      </if>
+      <if test="detailPhone != null" >
+        detail_phone = #{detailPhone,jdbcType=CHAR},
+      </if>
+      <if test="detailEmail != null" >
+        detail_email = #{detailEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAutograph != null" >
+        detail_autograph = #{detailAutograph,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.pojo.SysUserDetail" >
+    update sys_user_detail
+    set detail_name = #{detailName,jdbcType=CHAR},
+      detail_sex = #{detailSex,jdbcType=CHAR},
+      detail_date = #{detailDate,jdbcType=DATE},
+      detail_phone = #{detailPhone,jdbcType=CHAR},
+      detail_email = #{detailEmail,jdbcType=VARCHAR},
+      detail_autograph = #{detailAutograph,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- useGeneratedKeys 取值范围true|false 默认值是：false。 含义：设置是否使用JDBC的getGenereatedKeys方法获取主键并赋值到keyProperty设置的领域模型属性中。-->
+  <insert id="insertReturnDetailId" useGeneratedKeys="true" keyProperty="detailId" parameterType="com.book.pojo.SysUserDetail" >
+    insert into sys_user_detail (detail_id, detail_name, detail_sex, 
+      detail_date, detail_phone, detail_email, 
+      detail_autograph)
+    values (#{detailId,jdbcType=BIGINT}, #{detailName,jdbcType=CHAR}, #{detailSex,jdbcType=CHAR}, 
+      #{detailDate,jdbcType=DATE}, #{detailPhone,jdbcType=CHAR}, #{detailEmail,jdbcType=VARCHAR}, 
+      #{detailAutograph,jdbcType=VARCHAR})
+  </insert>
+</mapper>

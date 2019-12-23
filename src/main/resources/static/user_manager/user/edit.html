@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户编辑</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../../../bookcms/ladmin/css/font.css">
+		<link rel="stylesheet" href="../../../bookcms/ladmin/css/xadmin.css">
+		<script src="../../../bookcms/ladmin/js/jquery.min.js"></script>
+		<script src="../../../bookcms/ladmin/lib/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../bookcms/ladmin/js/xadmin.js"></script>
+
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	    <style>
+	    	.column{
+	    		display: block;
+	    	}
+	    	.layui-form-label{
+	    		text-align: left;
+	    	}
+	    </style>
+	</head>
+
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-header">用户编辑</div>
+						<div class="layui-card-body layui-row layui-col-space10">
+							<label class="layui-form-label">用户Id:</label>
+							<div class="layui-col-md7">
+								<input type="text" id="userId" name="title" placeholder="" readonly autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">用户名：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="userName" name="title" placeholder="用户名" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">密码：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="userPassword" name="title" placeholder="密码" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">姓名：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="detailName" name="title" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+					        <div class="layui-card layui-form" lay-filter="component-form-element">
+					          <div class="layui-card-body layui-col-space10">
+					            <div class="layui-col-md12">
+					              <label class="layui-form-label">性别：</label>
+					              <input type="radio" name="sex" value="男" title="男">
+					              <input type="radio" name="sex" value="女" title="女">
+					            </div>
+					          </div>
+					        </div><br/><br/>
+					        <label class="layui-form-label">注册时间：</label>
+							<div class="layui-col-md5" style="display: block;">
+								<input class="layui-input" placeholder="" name="start" id="start">
+							</div><br/><br/>
+							<label class="layui-form-label">手机号：</label>
+					        <div class="layui-col-md7" style="display: block;">
+								<input type="text" id="detailPhone" name="title" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">邮箱号：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="detailEmail" name="title" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<div class="layui-card layui-form" lay-filter="component-form-element">
+								<div class="layui-card-body layui-row layui-col-space10">
+									<label class="layui-form-label" style="padding-right: 0px;">权限：</label>
+									<div class="layui-col-md6" id="typeList">
+										<select name="city" lay-verify="">
+											<option value="">请选择一个权限</option>
+											<option value="010">普通用户</option>
+											<option value="021">管理员</option>
+											<option value="0571">贵族</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<label class="layui-form-label">个人说明：</label>
+							<div class="layui-col-md12">
+				              <textarea name="" id="detailAutograph" placeholder="" class="layui-textarea"></textarea>
+				            </div>
+							
+						</div>
+					</div>
+					<div id="" style="text-align: center;margin-top: 40px;">
+						<button class="layui-btn" onclick="edit();">更新</button>
+						<button class="layui-btn" style="margin-left: 30px;" onclick="cancel();">取消</button>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script>
+	      layui.use('laydate', function(){
+	        var laydate = layui.laydate;
+	        
+	        //执行一个laydate实例
+	        laydate.render({
+	          elem: '#start' //指定元素
+	        });
+	      });
+	
+	    </script>
+		
+		<script>
+		 	var detailId = '';
+		    function child(d) {
+		    	//在这里你可以写你的jquery $(function(){ })   等等操作
+		        layui.$.ajax({
+    		 	 	type:"post", //请求方式 get，post
+    	 	 	 	url:"../../user/findUserById",
+    	 	 	 	data:{"userId":d},
+    	 	 	 	async:true,  //是否异步,默认true
+    	 		 	success:function(data){ //data 返回值
+    	 				if(data.status=="200"){
+    	 		 	 	 	 layui.$("#userId").val(data.data.userId)
+    	 		 	 	 	 layui.$("#userName").val(data.data.userName)
+    	 		 	 	 	 layui.$("#userPassword").val(data.data.userPassword)
+    	 		 	 	 	 if(data.data.sysUserDetail!=null){
+    	 		 	 	 		 detailId = data.data.sysUserDetail.detailId
+    	 		 	 	 		 layui.$("#detailName").val(data.data.sysUserDetail.detailName)
+	      	 		 	 	 	 layui.$("#detailPhone").val(data.data.sysUserDetail.detailPhone)
+	      	 		 	 	 	 layui.$("#detailEmail").val(data.data.sysUserDetail.detailEmail)
+	      	 		 	 	 	 layui.$("#detailAutograph").val(data.data.sysUserDetail.detailAutograph)
+	      	 		 	 	  	 layui.$("#start").val(data.data.sysUserDetail.detailDate)
+	      	 		 	 	 	 var sex = data.data.sysUserDetail.detailSex
+	      	 		 	 	 	 if(sex=='男'){
+	      	 		 	 	 		layui.$("input[name='sex'][value='"+sex+"']").attr("checked",true);
+	      	 		 	 	 	 }else if(sex=='女'){
+	      	 		 	 	 		layui.$("input[name='sex'][value='"+sex+"']").attr("checked",true);
+	      	 		 	 	 	 }
+    	 		 	 	 	 }
+    	 		 	 	 	 //data.data.userRoleId
+    	 		 	 	 	 var roleId = data.data.userRoleId;
+    	 		 	 	 	 role(roleId);
+    	 		 	 	}else{
+    	 		 	 		 console.log("查询失败!");
+    	 		 	 	}
+    	 	 	 	}
+    		 	})
+		      
+		    }
+		    function role(roleId){
+		    	layui.$.ajax({
+			 	 		type:"post", //请求方式 get，post
+			 	 		url:"../../user/role/list",
+			 	 		async:false,  //是否异步,默认true
+			 	 		data:{},
+			 	 		dataType:"json", //返回值类型
+			 		 	success:function(data){ //data 返回值
+			 		 		layui.$('#typeList').html("")
+							var str="";
+							str+='<select id="role" name="role" lay-verify="role">';
+							str+='<option value="">请选择一个权限</option>'
+							layui.$.each(data,function(i,type){
+								if(roleId==type.roleId){
+									str+='<option value="'+type.roleId+'" selected="selected">'+type.roleName+'</option>'
+								}else{
+									str+='<option value="'+type.roleId+'">'+type.roleName+'</option>'
+								}
+								
+							})
+							str+='</select>'
+							layui.$('#typeList').html(str)
+							 //渲染下拉框
+	 	 		 	 	 	 layui.use('form', function(){
+	 	 						var form = layui.form;
+	 	 						form.render();
+	 	 						 //各种基于事件的操作，下面会有进一步介绍
+	 	 						 //form.render('组件名','lay-filter名')
+	 	 					 });
+			 	 		}
+				  	});
+		    }
+		    
+		    //点击更新
+		    function edit(){
+		    	var userId = layui.$("#userId").val().trim();
+		    	var userPassword = layui.$("#userPassword").val().trim();
+		    	var userName = layui.$("#userName").val().trim();
+				var detailName = layui.$("#detailName").val().trim();
+				var detailPhone = layui.$("#detailPhone").val().trim();
+				var detailDate = layui.$("#start").val().trim();
+				//获取选中性别的值
+				var sex=layui.$('input:radio[name="sex"]:checked').val();
+	            if(sex==null||roleId==''){
+	                alert("请选中一个性别!");
+	                return false;
+	            }
+	            //获取选中的权限的值
+	            var roleId =  layui.$("select[name='role'] option:selected").val();
+	            if(roleId==null||roleId==''){
+	                console.log("请选中一个权限,默认为游客(5)");
+	                roleId = "5";
+	            }
+	            //获取是否为空
+	            if(userName==null||userName==''||userPassword==null||userPassword==''||detailName==null||detailName==''||detailPhone==null||detailPhone==''){
+	            	alert("用户名、密码、姓名、手机号有一项为空则不能成为用户!");
+	            	return false;
+	            }
+	            layui.$.ajax({
+		 	 		type:"post", //请求方式 get，post
+		 	 		url:"../../user/update",
+		 	 		async:true,  //是否异步,默认true
+		 	 		data:{"userId":userId,"userDetailId":detailId,"detailDate":detailDate,"userName":userName,"userPassword":userPassword,"sysUserDetail.detailName":detailName,"sysUserDetail.detailPhone":detailPhone,"sysUserDetail.detailEmail":layui.$("#detailEmail").val(),"sysUserDetail.detailAutograph":layui.$("#detailAutograph").val(),"sysUserDetail.detailSex":sex,"userRoleId":roleId},
+		 	 		dataType:"json", //返回值类型
+		 		 	success:function(data){ //data 返回值
+		 		 		if(data.status=="200"){
+		 		 			 console.log("更新成功!");
+    	 		 	 	 	 x_admin_close();
+    	 		 	 	}else{
+    	 		 	 	 	 alert("更新失败!");
+    	 		 	 	}
+		 	 		}
+			  	});
+		    }
+		    
+		    //点击取消
+		    function cancel(){
+		    	x_admin_close();
+		    }
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加图书</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../../../bookcms/ladmin/css/font.css">
+		<link rel="stylesheet" href="../../../bookcms/ladmin/css/xadmin.css">
+		<script src="../../../bookcms/ladmin/js/jquery.min.js"></script>
+		<script src="../../../bookcms/ladmin/lib/layui/layui.js"></script>
+		<script type="text/javascript" src="../../../bookcms/ladmin/js/xadmin.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../bookcms/ladmin/lib/layui/css/layui.css">
+		<!-- 数字累加的 numberInput+jquery -->
+		<script type="text/javascript" src="../../../bookcms/ladmin/js/numberInput.js"></script>
+
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	    <style>
+			.column {
+				display: block;
+			}
+			
+			.layui-form-label {
+				text-align: left;
+			}
+			/*.layui-input, .layui-textarea {*/
+				/*100%*/
+   				/*width: auto;*/
+			/*}
+			.layui-card-body {*/
+				/*24px*/
+			    /*line-height: 0px;*/
+			/*}*/
+			.wrapper {
+            	margin-bottom: 10px;
+        	}
+		</style>
+	</head>
+
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-header">图书添加</div>
+						<div class="layui-card-body layui-row layui-col-space10">
+							<label class="layui-form-label">图书名称：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="bookName" name="bookName" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">价格：</label>
+							<div class="layui-col-md7">
+								<input type="text" id="bookPrice" name="bookPrice" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<label class="layui-form-label">数量：</label>
+							<!-- <input type="text" id="unUserPassword" name="title" placeholder="密码" autocomplete="off" class="layui-input"> -->
+							<div class="wrapper" id="bookNum"></div>
+							<label class="layui-form-label">界面：</label>
+							<div class="layui-upload-drag" id="test10">
+								<i class="layui-icon"></i>
+								<p>点击上传，或将文件拖拽到此处</p>
+							</div>
+							<div class="layui-upload">
+							  <!-- <button type="button" class="layui-btn" id="test1">上传图片</button> -->
+							  <div class="layui-upload-list">
+							    <img class="layui-upload-img" id="demo1">
+							    <p id="demoText"></p>
+							  </div>
+							</div>
+							<label class="layui-form-label">作者：</label>
+							<div class="layui-col-md7">
+								<input type="text" name="bookAuthor"  id="bookAuthor" placeholder="" autocomplete="off" class="layui-input">
+							</div><br/><br/>
+							<div class="layui-card layui-form" lay-filter="component-form-element">
+								<div class="layui-card-body layui-row layui-col-space10">
+									<label class="layui-form-label" style="padding-right: 0px;">分类：</label>
+									<div class="layui-col-md6" id="sortList">
+										
+										<select name="city" lay-verify="">
+											<option value="">请选择一个权限</option>
+											<option value="010">普通用户</option>
+											<option value="021">管理员</option>
+											<option value="0571">贵族</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="layui-card layui-form" lay-filter="component-form-element">
+								<div class="layui-card-body layui-row layui-col-space10">
+									<label class="layui-form-label" style="padding-right: 0px;">状态：</label>
+									<div class="layui-col-md6" id="stateList">
+										
+										<select name="city" lay-verify="">
+											<option value="">请选择一个权限</option>
+											<option value="010">普通用户</option>
+											<option value="021">管理员</option>
+											<option value="0571">贵族</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<label class="layui-form-label">详情：</label>
+							<div class="layui-col-md12">
+								<textarea name="" id="bookDetail" placeholder="" class="layui-textarea"></textarea>
+							</div>
+							<input type="hidden" id="uploadImg" />
+
+						</div>
+					</div>
+					<div id="" style="text-align: center;margin-top: 40px;">
+						<button class="layui-btn" onclick="add();">添加</button>
+						<button class="layui-btn" style="margin-left: 30px;" onclick="cancel();">取消</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+		    $(function () {
+		    	 $(".wrapper").numInput({
+		            width: 200,//宽度
+		            positive: true,//允许输入正数
+		            negative: false,//允许输入负数
+		            //faq：positive，negative不能同时false，同时false按同时为true处理
+		            floatCount: 4,//小数点后保留位数
+		            //命名空间，防止样式冲突
+		            wrapperClass: 'num-input-wrap',//最外层容器
+		            inputClass: 'num-input',//input输入框
+		            addClass: 'add',//增加按钮
+		            subtractClass: 'subtract',//减少按钮
+		        });
+		    })
+			layui.use(['laydate','upload'], function() {
+				var laydate = layui.laydate
+				,$ = layui.jquery
+				,upload = layui.upload;
+				
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#start' //指定元素
+				});
+				
+				 //拖拽上传
+				  upload.render({
+				    elem: '#test10'
+				    ,url: '../../fdfs/upload'
+				    ,exts: 'png|jpg|gif' //只允许上传文件
+				    ,before: function(obj){
+				    	//预读本地文件示例，不支持ie8
+					    obj.preview(function(index, file, result){
+					       $('#demo1').attr('src', result); //图片链接（base64）
+					    });
+		                layer.load(); //上传loading
+		            }
+				    ,done: function(res){
+				      if(res.url==null&&res.url==''){
+		                    return layer.msg('上传失败-------');
+		              }else {
+		            	  $("#uploadImg").val(res.url)
+		            	  layer.closeAll('loading'); //关闭loading
+		                  return  layer.msg('上传成功-------');
+		              }
+				    } 
+				    ,error: function(index,upload){
+				      layer.closeAll('loading'); //关闭loading
+				      //演示失败状态，并实现重传
+				      var demoText = $('#demoText');
+				      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+				      demoText.find('.demo-reload').on('click', function(){
+				        //uploadInst.upload();
+				        upload();
+				      });
+				    }
+				  });
+				
+			});
+		</script>
+		<script>
+			var flag = 0;
+			var userName = '';
+			$(function(){
+				layui.$.ajax({
+		 	 		type:"post", //请求方式 get，post
+		 	 		url:"../../book/book/list",
+		 	 		async:false,  //是否异步,默认true
+		 	 		data:{},
+		 	 		dataType:"json", //返回值类型
+		 		 	success:function(data){ //data 返回值
+		 		 		convertToString(data.sortList);
+		 		 		convertToString(data.stateList);
+		 	 		}
+			  	});
+			})
+			function convertToString(data){
+				var idName = '';
+				var sort = data[0].bisDictSort.sortName;
+				if(sort=="图书类别"){
+					layui.$('#sortList').html("")
+					idName ="sortList";
+				}else if(sort=="图书状态"){
+					layui.$('#stateList').html("")
+					idName ="stateList";
+				}
+				var str="";
+				str+='<select id="'+idName+'" name="'+idName+'" lay-verify="role">';
+				str+='<option value="">请选择一个权限</option>'
+				layui.$.each(data,function(i,type){
+					str+='<option value="'+type.bisId+'">'+type.bisName+'</option>'
+				})
+				str+='</select>'
+				if(sort=="图书类别"){
+					layui.$('#sortList').html(str)
+				}else if(sort=="图书状态"){
+					layui.$('#stateList').html(str)
+				}
+				
+				layui.use('form', function(){
+					var form = layui.form;
+					form.render('select','role');
+					 //各种基于事件的操作，下面会有进一步介绍
+					 //form.render('组件名','lay-filter名')
+				});
+			}
+			function add(){
+				var name = layui.$("#bookName").val().trim();
+				var price = layui.$("#bookPrice").val().trim();
+				var num = layui.$("#bookNum input").val().trim();
+				var author = layui.$("#bookAuthor").val().trim();
+				var detail = layui.$("#bookDetail").val();
+				var sortId = layui.$("select[name='sortList'] option:selected").val();
+				var stateId = layui.$("select[name='stateList'] option:selected").val();
+				var image = layui.$("#uploadImg").val();
+				if(name==null||name==''){
+					alert("图书名不能为空")
+					return false;
+				}
+				if(num==null||num==''){
+					num = 0;
+				}
+				//类别 默认类别未知
+				if(sortId==null||sortId==''){
+					sortId = 4;
+				}
+				//状态 默认状态在库 如果是下架选择则先上架,默认在库
+				if(stateId==null||stateId==''||stateId==53){
+					stateId = 51;
+				}
+				var urlData = "name="+name+"&price="+price+"&num="+num+"&author="+author+"&detail="+detail+"&sort="+sortId+"&state="+stateId+"&image="+image
+				layui.$.ajax({
+		 	 		type:"post", //请求方式 get，post
+		 	 		url:"../../book/add",
+		 	 		async:true,  //是否异步,默认true
+		 	 		data:urlData,
+		 	 		dataType:"json", //返回值类型
+		 		 	success:function(data){ //data 返回值
+		 		 		if(data.status=="200"){
+    	 		 	 	 	 console.log("添加成功!");
+    	 		 	 	 	 x_admin_close();
+    	 		 	 	}else{
+    	 		 	 	 	 alert("添加失败!");
+    	 		 	 	}
+		 	 		}
+			  	});
+			}
+			function cancel(){
+				x_admin_close();
+			}
+		</script>
+	</body>
+
+</html>

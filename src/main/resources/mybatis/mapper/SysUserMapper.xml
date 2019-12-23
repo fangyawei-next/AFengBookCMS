@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.book.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.book.pojo.SysUser" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_flag" property="userFlag" jdbcType="INTEGER" />
+    <result column="user_role_id" property="userRoleId" jdbcType="BIGINT" />
+    <result column="user_detail_id" property="userDetailId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_name, user_password, user_flag, user_role_id, user_detail_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.book.pojo.SysUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.book.pojo.SysUserExample" >
+    delete from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.book.pojo.SysUser" >
+    insert into sys_user (user_id, user_name, user_password, 
+      user_flag, user_role_id, user_detail_id
+      )
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userFlag,jdbcType=INTEGER}, #{userRoleId,jdbcType=BIGINT}, #{userDetailId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.book.pojo.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userFlag != null" >
+        user_flag,
+      </if>
+      <if test="userRoleId != null" >
+        user_role_id,
+      </if>
+      <if test="userDetailId != null" >
+        user_detail_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlag != null" >
+        #{userFlag,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleId != null" >
+        #{userRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="userDetailId != null" >
+        #{userDetailId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.book.pojo.SysUserExample" resultType="java.lang.Integer" >
+    select count(*) from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFlag != null" >
+        user_flag = #{record.userFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRoleId != null" >
+        user_role_id = #{record.userRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userDetailId != null" >
+        user_detail_id = #{record.userDetailId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_flag = #{record.userFlag,jdbcType=INTEGER},
+      user_role_id = #{record.userRoleId,jdbcType=BIGINT},
+      user_detail_id = #{record.userDetailId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.book.pojo.SysUser" >
+    update sys_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlag != null" >
+        user_flag = #{userFlag,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleId != null" >
+        user_role_id = #{userRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="userDetailId != null" >
+        user_detail_id = #{userDetailId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.book.pojo.SysUser" >
+    update sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_flag = #{userFlag,jdbcType=INTEGER},
+      user_role_id = #{userRoleId,jdbcType=BIGINT},
+      user_detail_id = #{userDetailId,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  
+   <!-- 分页模糊查询的条件 -->
+  <sql id="SysUser_Where_Clause">
+  	<where>
+  		<if test="sysUserDetail.detailDate!=null">
+  			AND detail_date = #{sysUserDetail.detailDate}
+  		</if>
+  		<if test="userName!=null and userName!=''">
+  			AND user_name LIKE '%${userName}%'
+  		</if>
+  		<if test="userFlag!=2 and userFlag!=null">
+  			AND user_flag = #{userFlag}
+  		</if>
+  	</where>
+  </sql>
+  
+  <!-- 重置主键Id -->
+  <update id="splaceEntityByPrimaryKey">
+  	ALTER TABLE sys_user AUTO_INCREMENT = 1
+  </update>
+  
+  <!-- 删除userId为string型字符串 -->
+   <delete id="deleteByUserIdToString" parameterType="java.lang.String" >
+    DELETE FROM sys_user
+    <where>
+    	user_id IN (${value});
+    </where>
+    ALTER TABLE sys_user AUTO_INCREMENT = 1;
+  </delete>
+  
+  <!-- 联表查询 模糊查询 分页查询 -->
+  <select id="selectByExampleByLike" parameterType="com.book.pojo.SysUser" resultMap="BaseResultMapToLike">
+  	SELECT * FROM sys_user su
+	LEFT JOIN sys_role sr ON su.user_role_id = sr.role_id
+	LEFT JOIN sys_user_detail sd ON su.user_detail_id = sd.detail_id
+	<include refid="SysUser_Where_Clause"></include>
+  </select>
+  <resultMap id="BaseResultMapToLike" type="com.book.pojo.SysUser" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_flag" property="userFlag" jdbcType="INTEGER" />
+    <result column="user_role_id" property="userRoleId" jdbcType="BIGINT" />
+    <result column="user_detail_id" property="userDetailId" jdbcType="BIGINT" />
+    <association property="sysUserDetail" javaType="com.book.pojo.SysUserDetail">
+    	 <id column="detail_id" property="detailId" jdbcType="BIGINT" />
+	    <result column="detail_name" property="detailName" jdbcType="CHAR" />
+	    <result column="detail_sex" property="detailSex" jdbcType="CHAR" />
+	    <result column="detail_date" property="detailDate" jdbcType="DATE" />
+	    <result column="detail_phone" property="detailPhone" jdbcType="INTEGER" />
+	    <result column="detail_email" property="detailEmail" jdbcType="VARCHAR" />
+	    <result column="detail_autograph" property="detailAutograph" jdbcType="VARCHAR" />
+    </association>
+    <collection property="sysRoleList" ofType="com.book.pojo.SysRole">
+    	<id column="role_id" property="roleId" jdbcType="BIGINT" />
+	    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+	    <result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
+	    <result column="role_flag" property="roleFlag" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  
+</mapper>
