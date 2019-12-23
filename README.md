@@ -147,13 +147,13 @@ QQ邮箱SMTP服务器的我已写好
 
 以下为阿风图书CRM JAVA版部分功能系统截图
 
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g1.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g2.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g3.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g4.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g5.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g6.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g7.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g8.PNG)
-![](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g9.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g1.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g2.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g3.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g4.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g5.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g6.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g7.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g8.PNG)
+![image](https://github.com/fangyawei-next/AFengBookCMS/blob/master/images/g9.PNG)
 
