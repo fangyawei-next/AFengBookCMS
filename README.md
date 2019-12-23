@@ -55,7 +55,7 @@ UI框架：Easyui、Layui
 
 数据库默认账号 root 默认密码 123456  
 
-注: 不用FastDFS不影响运行把对应的配置注释掉就行了，否则可能会报错
+注: 不用FastDFS不影响运行，把对应的配置注释掉就行了，否则可能会报错
 
 工具类：src/main/java/com/book/common/FastDFSClientWrapper.java 和 src/main/java/com/book/common/AppConfig.java
 
